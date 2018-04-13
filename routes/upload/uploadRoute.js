@@ -39,7 +39,7 @@ router.post('/', upload.single('file'), function (req, res, next) {
   imagename = md5(buf) + '.' + ext;
   imagepath = path.join(config.dir, imagetype.includes("image") ? 'image' : 'file', imagename);
   fs.renameSync(old_path, imagepath); // 同步修改image文件名
-  imageurl = config.url + '/image' + imagename;
+  imageurl = config.url + '/image/' + imagename;
 
   bo.imagename = imagename;
   bo.imagepath = imagepath;
