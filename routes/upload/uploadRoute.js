@@ -19,8 +19,13 @@ let storage = multer.diskStorage({
 let upload = multer({ storage: storage })
 
 router.post('/', upload.single('file'), function (req, res, next) {
+  let rm = new RestMsg();
 
-  let rm = RestMsg();
+  if (!req.file) {
+    rm.errorMsg("请选择文件！");
+    return res.send(rm);
+  }
+  
   let bo = {};
   let imagesize = req.file.size; // 最终存储文件大小
   let imagetype = req.file.mimetype; // 最终存储文件类型
@@ -32,7 +37,7 @@ router.post('/', upload.single('file'), function (req, res, next) {
   let old_path = req.file.path; // 获取image当前存储路径
   let buf = fs.readFileSync(old_path); // 同步读取image文件，返回buffer
   imagename = md5(buf) + '.' + ext;
-  imagepath = path.join(dir, imagetype.includes("image") ? 'image' : 'file', imagename);
+  imagepath = path.join(config.dir, imagetype.includes("image") ? 'image' : 'file', imagename);
   fs.renameSync(old_path, imagepath); // 同步修改image文件名
   imageurl = config.url + '/image' + imagename;
 
@@ -53,7 +58,7 @@ router.post('/', upload.single('file'), function (req, res, next) {
     })
   })
 
-  rm.setResult(bo);
+  rm.setResult(bo)
   res.send(rm);
   return;
 });
