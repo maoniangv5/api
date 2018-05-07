@@ -2,22 +2,22 @@
 var mongoose = require('../../../db/db');
 
 var imageSchema = mongoose.Schema({
-    imagename: {
+    name: {
         type: String,
         require: true
     },
-    imagepath: {
+    path: {
         type: String,
         require: true
     },
-    imageurl: {
+    url: {
         type: String,
         require: true
     },
-    imagesize: {
+    size: {
         type: Number
     },
-    imagetype: {
+    type: {
         type: String
     },
     des: {
