@@ -41,11 +41,11 @@ router.post('/', upload.single('file'), function (req, res, next) {
   fs.renameSync(old_path, imagepath); // 同步修改image文件名
   imageurl = config.url + '/image/' + imagename;
 
-  bo.imagename = imagename;
-  bo.imagepath = imagepath;
-  bo.imageurl = imageurl;
-  bo.imagesize = imagesize;
-  bo.imagetype = imagetype;
+  bo.name = imagename;
+  bo.path = imagepath;
+  bo.url = imageurl;
+  bo.size = imagesize;
+  bo.type = imagetype;
   bo.des = des;
 
   // 先查重，后异步保存bo
